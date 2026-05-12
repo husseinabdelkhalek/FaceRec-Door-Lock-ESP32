@@ -36,3 +36,39 @@ An IoT-based smart door lock system that utilizes an ESP32-CAM module and Python
    ```cpp
    const char* ssid     = "YOUR_WIFI_SSID";
    const char* password = "YOUR_WIFI_PASSWORD";
+   ```
+3. Upload the code to your ESP32-CAM.
+4. Open the Serial Monitor (115200 baud rate) to get the IP address assigned to the ESP32.
+
+### 2. Python Environment Setup
+1. Clone this repository:
+   ```bash
+   git clone [https://github.com/husseinabdelkhalek/Your-Repo-Name.git](https://github.com/husseinabdelkhalek/Your-Repo-Name.git)
+   cd Your-Repo-Name
+   ```
+2. Install the required Python packages:
+   ```bash
+   pip install opencv-contrib-python numpy requests urllib3
+   ```
+3. Open the `final code.py` file and update the `ESP32_IP` variable with the IP address from step 1:
+   ```python
+   ESP32_IP = "YOUR_ESP32_IP_ADDRESS"
+   ```
+
+## 🎮 How to Use
+
+1. Run the Python script:
+   ```bash
+   python "final code.py"
+   ```
+2. **Register a New Face:** Press the **`r`** key on your keyboard while the video stream window is active. Enter the person's name in the terminal and look at the camera. It will capture 50 images and train the model automatically.
+3. **Face Recognition:** Once trained, the system will actively scan for known faces. When recognized, it sends an HTTP POST request to the ESP32 to open the servo.
+4. **Quit:** Press the **`q`** key to safely stop the stream and close the application.
+
+## 📡 Web Endpoints Reference
+The ESP32 hosts a web server with the following endpoints:
+* `/` : Web dashboard with live stream and manual controls.
+* `/stream` : The MJPEG video stream.
+* `/action` (POST): Triggered by Python to open the door (expects a `name` argument).
+* `/led/on` & `/led/off` : Manual LED control.
+* `/unlock` & `/open_servo` : Manual servo controls.
